@@ -169,7 +169,9 @@ function TokenChecker() {
               </div>
               <a
                 className={styles.explorer}
-                href={`https://explorer.solana.com/address/${mint.address}`}
+                href={`https://explorer.solana.com/address/${encodeURIComponent(
+                  mint.address,
+                )}`}
                 target="_blank"
                 rel="noreferrer"
               >
