@@ -53,7 +53,7 @@ function displaySupply(supply, decimals) {
 }
 
 function authorityLabel(authority) {
-  if (authority === null) return 'Revocada';
+  if (authority === null) return 'No configurada actualmente';
   return authority
     ? 'Activa: puede ejercer autoridad'
     : 'No informada por el RPC';
@@ -146,7 +146,12 @@ function TokenChecker() {
                 spellCheck="false"
                 placeholder="Pega una dirección de mint"
                 value={address}
-                onChange={(event) => setAddress(event.target.value)}
+                disabled={loading}
+                onChange={(event) => {
+                  setAddress(event.target.value);
+                  setMint(null);
+                  setError('');
+                }}
               />
               <button type="submit" disabled={loading}>
                 {loading ? 'Consultando…' : 'Analizar mint'}
@@ -160,8 +165,9 @@ function TokenChecker() {
           )}
         </section>
 
-        {mint && (
-          <section className={styles.results} aria-live="polite">
+        <div aria-live="polite">
+          {mint && (
+            <section className={styles.results}>
             <div className={styles.resultHeading}>
               <div>
                 <p className={styles.eyebrow}>INFORME DE CUENTA</p>
@@ -234,8 +240,9 @@ function TokenChecker() {
               seguro; la ausencia de extensiones reportadas tampoco confirma que
               no existan.
             </p>
-          </section>
-        )}
+            </section>
+          )}
+        </div>
         <p className={styles.footnote}>
           El RPC público puede limitar solicitudes. La herramienta solo consulta
           datos y nunca solicita firmas ni claves privadas.
