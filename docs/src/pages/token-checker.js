@@ -165,7 +165,10 @@ function TokenChecker() {
           )}
         </section>
 
-        <div aria-live="polite">
+        <p className={styles.visuallyHidden} role="status" aria-live="polite">
+          {mint ? `Análisis completado para el mint ${mint.address}.` : ''}
+        </p>
+        <div>
           {mint && (
             <section className={styles.results}>
             <div className={styles.resultHeading}>
